@@ -42,7 +42,8 @@ exports.addExercise = (req, res, next) => {
         if (datetemp == 'Invalid Date') {
           return res.send('Enter Valid date');
         } else {
-          output = datetemp;
+          //   output = datetemp;
+          return res.send('Enter Valid date');
         }
       }
 
