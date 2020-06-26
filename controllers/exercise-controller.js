@@ -13,6 +13,13 @@ exports.addExercise = (req, res, next) => {
 
   console.log(new Date(req.body.date).toUTCString());
 
+  if (description == '') {
+    return res.send('Path "description" is required.');
+  }
+  if (duration == '') {
+    return res.send('Path "duration" is required.');
+  }
+
   // if (!hex.test(userId)) {}
 
   if (!ObjectId.isValid(userId)) {
@@ -27,7 +34,7 @@ exports.addExercise = (req, res, next) => {
           userId: userId,
           description: description,
           duration: duration,
-          date: new Date(req.body.date).toString(),
+          date: new Date(req.body.date).toUTCString(),
         });
       } else {
         return res.send('Please enter valid date with format "YYYY-MM-DD".');
@@ -38,7 +45,7 @@ exports.addExercise = (req, res, next) => {
         userId: userId,
         description: description,
         duration: duration,
-        date: Date(),
+        date: new Date(Date.now()).toUTCString(),
       });
     }
 
