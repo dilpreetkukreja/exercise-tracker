@@ -18,6 +18,8 @@ exports.addExercise = (req, res, next) => {
   }
   if (duration == '') {
     return res.send('Path "duration" is required.');
+  } else if (isNaN(duration)) {
+    return res.send('Please enter valid duration in minutes');
   }
 
   // if (!hex.test(userId)) {}
