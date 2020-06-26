@@ -2,6 +2,7 @@ const User = require('../models/user');
 const Exercise = require('../models/exercise');
 const mongodb = require('mongodb');
 const ObjectId = mongodb.ObjectId;
+const moment = require('moment');
 
 exports.addExercise = (req, res, next) => {
   const userId = req.body.userId;
@@ -30,17 +31,28 @@ exports.addExercise = (req, res, next) => {
     );
   } else {
     if (date) {
-      if (new Date(req.body.date).toUTCString() != 'Invalid Date') {
-        //adding date added by user
-        exercise = new Exercise({
-          userId: userId,
-          description: description,
-          duration: duration,
-          date: new Date(req.body.date),
-        });
+      if (isNaN(date)) {
+        let datetemp = new Date(date);
+        if (datetemp == 'Invalid Date') {
+          return res.send('Enter Valid date');
+        } else {
+          output = datetemp.getTime();
+        }
       } else {
-        return res.send('Please enter valid date with format "YYYY-MM-DD".');
+        datetemp = new Date(+date);
+        if (datetemp == 'Invalid Date') {
+          return res.send('Enter Valid date');
+        } else {
+          output = +datetemp;
+        }
       }
+
+      exercise = new Exercise({
+        userId: userId,
+        description: description,
+        duration: duration,
+        date: output,
+      });
     } else {
       //adding default current date by database itself
       exercise = new Exercise({
