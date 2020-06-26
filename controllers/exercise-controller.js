@@ -36,7 +36,7 @@ exports.addExercise = (req, res, next) => {
           userId: userId,
           description: description,
           duration: duration,
-          date: new Date(req.body.date).toUTCString(),
+          date: new Date(req.body.date),
         });
       } else {
         return res.send('Please enter valid date with format "YYYY-MM-DD".');
@@ -47,7 +47,7 @@ exports.addExercise = (req, res, next) => {
         userId: userId,
         description: description,
         duration: duration,
-        date: new Date(Date.now()).toUTCString(),
+        date: new Date(Date.now()),
       });
     }
 
