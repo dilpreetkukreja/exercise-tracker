@@ -25,7 +25,7 @@ exports.addExercise = (req, res, next) => {
 
   if (!ObjectId.isValid(userId)) {
     return res.send(
-      `No such user with User Id: ${userId} exists in database, try again with existing User Id!`
+      `No such user with User Id: "${userId}" exists in database, try again with existing User Id!`
     );
   } else {
     if (date) {
@@ -35,14 +35,14 @@ exports.addExercise = (req, res, next) => {
         if (datetemp == 'Invalid Date') {
           return res.send('Enter Valid date');
         } else {
-          output = new Date(datetemp.getTime()).toUTCString();
+          output = datetemp;
         }
       } else {
         datetemp = new Date(+date);
         if (datetemp == 'Invalid Date') {
           return res.send('Enter Valid date');
         } else {
-          output = new Date(+datetemp).toUTCString();
+          output = datetemp;
         }
       }
 
