@@ -55,7 +55,7 @@ exports.addExercise = (req, res, next) => {
     } else {
       //adding default current date by database itself
       exercise = new Exercise({
-        userId: userId,
+        _id: userId,
         description: description,
         duration: duration,
         date: new Date(),
