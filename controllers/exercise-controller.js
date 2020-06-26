@@ -10,6 +10,7 @@ exports.addExercise = (req, res, next) => {
   const duration = req.body.duration;
   const date = req.body.date;
   let exercise;
+  console.log(userId);
   const hex = /[0-9A-Fa-f]{6}/g;
 
   if (description == '') {

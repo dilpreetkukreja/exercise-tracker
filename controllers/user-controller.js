@@ -33,6 +33,9 @@ exports.fetchUsers = (req, res, next) => {
 
 exports.fetchUserLog = (req, res, next) => {
   const userId = req.query.userId;
+  const from = req.query.from;
+  const to = req.query.to;
+  const limit = req.query.limit;
   console.log(userId);
   if (ObjectId.isValid(userId)) {
     User.findById({
@@ -50,6 +53,21 @@ exports.fetchUserLog = (req, res, next) => {
         )
           .then((exerciseData) => {
             //console.log(exerciseData);
+            if (from) {
+              exerciseData = exerciseData.filter((data) => {
+                return new Date(data.date) >= new Date(from);
+              });
+              console.log(exerciseData);
+            }
+            if (to) {
+              exerciseData = exerciseData.filter((data) => {
+                return new Date(data.date) <= new Date(to);
+              });
+              console.log(exerciseData);
+            }
+            if (limit) {
+              exerciseData = exerciseData.slice(0, +limit);
+            }
             res.json({
               userId: userId,
               username: userData.username,
