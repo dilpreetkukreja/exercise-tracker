@@ -35,7 +35,7 @@ exports.addExercise = (req, res, next) => {
         if (datetemp == 'Invalid Date') {
           return res.send('Enter Valid date');
         } else {
-          output = datetemp;
+          output = datetemp.toDateString().slice(0, 15);
         }
       } else {
         datetemp = new Date(+date);
@@ -43,9 +43,9 @@ exports.addExercise = (req, res, next) => {
           return res.send('Enter Valid date');
         } else {
           if (date.length <= 6) {
-            output = new Date(date);
+            output = new Date(date).toDateString().slice(0, 15);
           } else {
-            output = new Date(+date);
+            output = new Date(+date).toDateString().slice(0, 15);
           }
 
           //   return res.send('Enter Valid date');
@@ -64,7 +64,7 @@ exports.addExercise = (req, res, next) => {
         userId: userId,
         description: description,
         duration: duration,
-        date: Date.now(),
+        date: Date.now().toDateString().slice(0, 15),
       });
     }
 
