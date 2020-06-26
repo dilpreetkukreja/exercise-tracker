@@ -27,7 +27,7 @@ exports.addExercise = (req, res, next) => {
           userId: userId,
           description: description,
           duration: duration,
-          date: new Date(req.body.date).toUTCString(),
+          date: new Date(req.body.date).toString(),
         });
       } else {
         return res.send('Please enter valid date with format "YYYY-MM-DD".');
@@ -38,7 +38,7 @@ exports.addExercise = (req, res, next) => {
         userId: userId,
         description: description,
         duration: duration,
-        date: new Date(Date.now()).toUTCString(),
+        date: Date(),
       });
     }
 
@@ -56,7 +56,7 @@ exports.addExercise = (req, res, next) => {
           .then((exerciseData) => {
             const username = userData.username;
             res.json({
-              userId: exerciseData._id,
+              _id: userId,
               username: username,
               date: exerciseData.date,
               duration: exerciseData.duration,
