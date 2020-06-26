@@ -47,7 +47,7 @@ exports.addExercise = (req, res, next) => {
       }
 
       exercise = new Exercise({
-        userId: userId,
+        _id: userId,
         description: description,
         duration: duration,
         date: output,
