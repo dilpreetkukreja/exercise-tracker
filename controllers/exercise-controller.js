@@ -76,7 +76,7 @@ exports.addExercise = (req, res, next) => {
           .then((exerciseData) => {
             const username = userData.username;
             res.json({
-              _id: exerciseData._id,
+              _id: userId,
               username: username,
               date: exerciseData.date,
               duration: exerciseData.duration,
