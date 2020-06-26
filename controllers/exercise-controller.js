@@ -47,7 +47,7 @@ exports.addExercise = (req, res, next) => {
         userId: userId,
         description: description,
         duration: duration,
-        date: new Date(Date.now()),
+        date: new Date(),
       });
     }
 
