@@ -64,7 +64,7 @@ exports.addExercise = (req, res, next) => {
         userId: userId,
         description: description,
         duration: duration,
-        date: Date.now().toDateString().slice(0, 15),
+        date: new Date().toDateString().slice(0, 15),
       });
     }
 

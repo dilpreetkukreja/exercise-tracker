@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const Exercise = require('../models/exercise');
+const mongodb = require('mongodb');
+const ObjectId = mongodb.ObjectId;
 
 exports.createUser = (req, res, next) => {
   const username = req.body.username;
@@ -32,29 +34,33 @@ exports.fetchUsers = (req, res, next) => {
 exports.fetchUserLog = (req, res, next) => {
   const userId = req.query.userId;
   console.log(userId);
-  User.findById({
-    _id: userId,
-  })
-    .then((userData) => {
-      if (!userData) {
-        return res.send(`No such user with User Id: ${userId}`);
-      }
-      Exercise.find(
-        {
-          userId: userId,
-        },
-        'description duration date -_id'
-      )
-        .then((exerciseData) => {
-          //console.log(exerciseData);
-          res.json({
-            userId: userId,
-            username: userData.username,
-            count: exerciseData.length,
-            log: exerciseData,
-          });
-        })
-        .catch((err) => console.log(err));
+  if (ObjectId.isValid(userId)) {
+    User.findById({
+      _id: userId,
     })
-    .catch((err) => console.log(err));
+      .then((userData) => {
+        if (!userData) {
+          return res.send(`No such user with User Id: ${userId}`);
+        }
+        Exercise.find(
+          {
+            userId: userId,
+          },
+          'description duration date -_id'
+        )
+          .then((exerciseData) => {
+            //console.log(exerciseData);
+            res.json({
+              userId: userId,
+              username: userData.username,
+              count: exerciseData.length,
+              log: exerciseData,
+            });
+          })
+          .catch((err) => console.log(err));
+      })
+      .catch((err) => console.log(err));
+  } else {
+    res.send('Not a valid userId');
+  }
 };
